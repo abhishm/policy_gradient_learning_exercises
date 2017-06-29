@@ -46,9 +46,9 @@ class TabularQAgent(object):
         max_iteration = config["n_itr"]
         reached_goal = 0
         reached_goal_array = []
-        for n_episode in xrange(max_episodes):
+        for n_episode in range(max_episodes):
             present_state = env.reset()
-            for n_itr in xrange(max_iteration):
+            for n_itr in range(max_iteration):
                 action = self.act(present_state)
                 next_state, reward, done, _ = env.step(action)
                 future = 0.0
@@ -65,7 +65,7 @@ class TabularQAgent(object):
                     reached_goal += reward
                     break
             reached_goal_array.append(reward)
-        print 'The algorithm reached to goal {0} times in {1} number of episodes during learning phase.'.format(reached_goal, max_episodes)
+        print('The algorithm reached to goal {0} times in {1} number of episodes during learning phase.'.format(reached_goal, max_episodes))
         return reached_goal_array
 
     def sarsa_lambda(self, env):
@@ -79,10 +79,10 @@ class TabularQAgent(object):
         max_iteration = config["n_itr"]
         reached_goal = 0
         reached_goal_array = []
-        for n_episode in xrange(max_episodes):
+        for n_episode in range(max_episodes):
             present_state = env.reset()
             present_action = self.act(present_state)
-            for n_itr in xrange(max_iteration):
+            for n_itr in range(max_iteration):
                 next_state, reward, done, _ = env.step(present_action)
                 future = 0.0
                 if not done:
@@ -101,7 +101,7 @@ class TabularQAgent(object):
                 present_action = next_action
 
             reached_goal_array.append(reward)
-        print 'The algorithm reached to goal {0} times in {1} number of episodes during learning phase.'.format(reached_goal, max_episodes)
+        print('The algorithm reached to goal {0} times in {1} number of episodes during learning phase.'.format(reached_goal, max_episodes))
         return reached_goal_array
 
 
@@ -111,13 +111,13 @@ class TabularQAgent(object):
         max_iteration = self.config["n_itr"]
         q = self.q
         present_state = env.reset()
-        for n_episode in xrange(max_episodes):
+        for n_episode in range(max_episodes):
             present_state = env.reset()
-            for n_itr in xrange(max_iteration):
+            for n_itr in range(max_iteration):
                 action = np.argmax(q[present_state])
                 next_state, reward, done, _ = env.step(action)
                 present_state = next_state
                 if done:
                     cum_reward += reward
                     break
-        print "The average reward in {0} episodes is {1}".format(max_episodes, cum_reward)
+        print("The average reward in {0} episodes is {1}".format(max_episodes, cum_reward))
